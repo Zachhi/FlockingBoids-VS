@@ -36,6 +36,7 @@ private:
 	float gameSpeedAnimHold;
 
 	bool isPredator; //check if the current boid is a predator or not
+	bool isPredatorOnScreen = false; //check if there is any predator on screen. This is because I think it looks better when everyones rotation speed is a little higher when a predator is on screen
 
 	std::string boidType; //will hold the type of boid (blue, gree, predator, etc)
 	std::string currTracking = "none";
@@ -69,11 +70,12 @@ public:
 	void setRandomRotationDirectionVelocity(); //will give the boid a random rotation, and update its direction and velocity accordingly
 	void setAttributesBasedOnType(std::string type); //sets the boids speed of mvmt, rotation, animation, etc. based on its type 
 	void setSprite(sf::Texture& thatTexture); //sets sprites texture and the sprites rect
+	void setIsPredatorOnScreen(bool isPredOnScreen); //sets the "isPredatorOnScreen" variable
 
 	//--------------UPDATE BOID FUNCTIONS---------------
 	//general update function. will call all update functions to update position, animation, rotation, etc (based on its variables that should have been changed from
 	//either callBoidRules or callPredatorRules), then will draw it to the window.
-	void updateBoid(sf::RenderWindow& window);
+	void updateBoid(sf::RenderWindow& window, bool isPredOnScreen);
 	void updatePredatorAnim();
 	void updatePreyAnim();
 	void updatePosition();

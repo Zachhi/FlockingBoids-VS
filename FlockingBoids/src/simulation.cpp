@@ -7,7 +7,6 @@ Simulation::Simulation() :
 //initialize the needed values
 void Simulation::initialize()
 {
-	
 	//set a frame limit 
 	window.setFramerateLimit(60);
 	//this forces the frame rate to stay relatively near 60. 
@@ -275,7 +274,7 @@ void Simulation::checkForUserInput()
 			int posy = event.mouseButton.y;
 
 			//create the new boid with the right type
-			addNewBoid(posx, posy);
+			addNewBoid(posx, posy, -1); //-1 is for a random rotation
 
 			//update sound effects accordingly
 			soundEffectManager(soundEffects.smallSplash);
@@ -290,7 +289,7 @@ void Simulation::checkForUserInput()
 				int posy = rand() % (windowHeight - 100) + 100;
 
 				//create the new boid with the right type
-				addNewBoid(posx, posy);
+				addNewBoid(posx, posy, -1); //-1 is for a random rotation
 
 				//update sound effects accordingly
 				soundEffectManager(soundEffects.largeSplash);
@@ -301,7 +300,8 @@ void Simulation::checkForUserInput()
 		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::X)
 		{
 			//add two boids facing each other
-			addTwoNewBoids();
+			addNewBoid(800, 800, 180);
+			addNewBoid(1400, 800, 0);
 			//update sound effects accordingly
 			soundEffectManager(soundEffects.smallSplash);
 		}
@@ -397,7 +397,7 @@ void Simulation::checkForUserInput()
 	}
 }
 //to help with creating new boids
-void Simulation::addNewBoid(int posx, int posy)
+void Simulation::addNewBoid(int posx, int posy, int rot)
 {
 	//if IsPredator, make a predator. else make a boid with the correct color
 	if (isPredator)
@@ -406,8 +406,11 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight); //set its window dimesnions
 		newBoid.setPosition(posx, posy); //set its position
 		newBoid.setGameSpeed(currGameSpeed); //set its gamespeed
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		predators.push_back(newBoid); //add to the correct vector
 		counts.boidPredatorCount += 1; //update its count
+		isPredatorOnScreen = true;
 	}
 	else if (currBoidType == 0)
 	{
@@ -415,6 +418,8 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight);
 		newBoid.setPosition(posx, posy);
 		newBoid.setGameSpeed(currGameSpeed);
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		blueBoids.push_back(newBoid);
 		counts.boidBlueCount += 1;
 	}
@@ -424,6 +429,8 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight);
 		newBoid.setPosition(posx, posy);
 		newBoid.setGameSpeed(currGameSpeed);
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		DBlueBoids.push_back(newBoid);
 		counts.boidDBlueCount += 1;
 	}
@@ -433,6 +440,8 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight);
 		newBoid.setPosition(posx, posy);
 		newBoid.setGameSpeed(currGameSpeed);
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		pinkBoids.push_back(newBoid);
 		counts.boidPinkCount += 1;
 	}
@@ -442,6 +451,8 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight);
 		newBoid.setPosition(posx, posy);
 		newBoid.setGameSpeed(currGameSpeed);
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		yellowBoids.push_back(newBoid);
 		counts.boidYellowCount += 1;
 	}
@@ -451,109 +462,11 @@ void Simulation::addNewBoid(int posx, int posy)
 		newBoid.setWindow(windowWidth, windowHeight);
 		newBoid.setPosition(posx, posy);
 		newBoid.setGameSpeed(currGameSpeed);
+		if (rot != -1)
+			newBoid.setRotation(rot);
 		whiteBoids.push_back(newBoid);
 		counts.boidWhiteCount += 1;
 
-	}
-}
-//help tp add two new boids when x is clicked
-void Simulation::addTwoNewBoids()
-{
-	if (isPredator)
-	{
-		Boid newBoidLeft("predator", textures.boidTexturePredator);
-		Boid newBoidRight("predator", textures.boidTexturePredator);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		predators.push_back(newBoidLeft);
-		predators.push_back(newBoidRight);
-		counts.boidPredatorCount += 2;
-	}
-	else if (currBoidType == 0)
-	{
-		Boid newBoidLeft("blue", textures.boidTextureBlue);
-		Boid newBoidRight("blue", textures.boidTextureBlue);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		blueBoids.push_back(newBoidLeft);
-		blueBoids.push_back(newBoidRight);
-		counts.boidBlueCount += 2;
-	}
-	else if (currBoidType == 1)
-	{
-		Boid newBoidLeft("green", textures.boidTextureDBlue);
-		Boid newBoidRight("green", textures.boidTextureDBlue);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		DBlueBoids.push_back(newBoidLeft);
-		DBlueBoids.push_back(newBoidRight);
-		counts.boidDBlueCount += 2;
-	}
-	else if (currBoidType == 2)
-	{
-		Boid newBoidLeft("pink", textures.boidTexturePink);
-		Boid newBoidRight("pink", textures.boidTexturePink);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		pinkBoids.push_back(newBoidLeft);
-		pinkBoids.push_back(newBoidRight);
-		counts.boidPinkCount += 2;
-	}
-	else if (currBoidType == 3)
-	{
-		Boid newBoidLeft("yellow", textures.boidTextureYellow);
-		Boid newBoidRight("yellow", textures.boidTextureYellow);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		yellowBoids.push_back(newBoidLeft);
-		yellowBoids.push_back(newBoidRight);
-		counts.boidYellowCount += 2;
-	}
-	else
-	{
-		Boid newBoidLeft("white", textures.boidTextureWhite);
-		Boid newBoidRight("white", textures.boidTextureWhite);
-		newBoidLeft.setRotation(180);
-		newBoidRight.setRotation(0);
-		newBoidLeft.setWindow(windowWidth, windowHeight);
-		newBoidRight.setWindow(windowWidth, windowHeight);
-		newBoidLeft.setPosition(800, 800);
-		newBoidRight.setPosition(1400, 800);
-		newBoidLeft.setGameSpeed(currGameSpeed);
-		newBoidRight.setGameSpeed(currGameSpeed);
-		whiteBoids.push_back(newBoidLeft);
-		whiteBoids.push_back(newBoidRight);
-		counts.boidWhiteCount += 2;
 	}
 }
 //help to create or delete a repulsion
@@ -588,10 +501,6 @@ void Simulation::repulsionHelp(int posx, int posy)
 //draw a circle of repulsions
 void Simulation::drawCircleRepulsions(int radius, float incVal)
 {
-	//500, 800 with i += 3 is good
-	//500, i+=10 is good
-	//200, i+=15 good
-	//get the center
 	sf::Vector2f center;
 	center.x = windowWidth / 2; 
 	center.y = windowHeight / 2;
@@ -640,6 +549,7 @@ void Simulation::clearAll()
 	counts.boidPredatorCount = 0;
 	soundEffects.waterSound.stop();
 	isWaterSound = false;
+	isPredatorOnScreen = false;
 }
 //clear current object
 void Simulation::clearCurrent()
@@ -648,6 +558,7 @@ void Simulation::clearCurrent()
 	{
 		predators.clear();
 		counts.boidPredatorCount = 0;
+		isPredatorOnScreen = false;
 	}
 	else if (currBoidType == 0) //if blue
 	{
@@ -931,17 +842,17 @@ void Simulation::updateObjects()
 {
 	//loops through each boids vector and updates each individual boid in the vectors. Does the same for repulsions
 	for (int i = 0; i < DBlueBoids.size(); i++)
-		DBlueBoids[i].updateBoid(window);
+		DBlueBoids[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < blueBoids.size(); i++)
-		blueBoids[i].updateBoid(window);
+		blueBoids[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < pinkBoids.size(); i++)
-		pinkBoids[i].updateBoid(window);
+		pinkBoids[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < yellowBoids.size(); i++)
-		yellowBoids[i].updateBoid(window);
+		yellowBoids[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < whiteBoids.size(); i++)
-		whiteBoids[i].updateBoid(window);
+		whiteBoids[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < predators.size(); i++)
-		predators[i].updateBoid(window);
+		predators[i].updateBoid(window, isPredatorOnScreen);
 	for (int i = 0; i < repulsions.size(); i++)
 		repulsions[i].updateRepulsion(window);
 }

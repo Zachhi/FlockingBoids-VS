@@ -140,9 +140,14 @@ void Boid::setSprite(sf::Texture& thatTexture)
 	rectSprite.left = 0;
 	rectSprite.top = 0;
 }
+//sets the "isPredatorOnScreen" variable
+void Boid::setIsPredatorOnScreen(bool isPredOnScreen)
+{
+	isPredatorOnScreen = isPredOnScreen;
+}
 
 //--------------UPDATE BOID FUNCTIONS---------------
-void Boid::updateBoid(sf::RenderWindow& window)
+void Boid::updateBoid(sf::RenderWindow& window, bool isPredOnScreen)
 {
 	//update each necasaary value and then draw the boid to the window
 	if (!isPredator)
@@ -150,6 +155,7 @@ void Boid::updateBoid(sf::RenderWindow& window)
 	else
 		updatePredatorAnim();
 
+	setIsPredatorOnScreen(isPredOnScreen);
 	updateRotation();
 	updateDirection();
 	updateVelocity();
@@ -195,6 +201,9 @@ void Boid::updateRotation()
 	rotSpeedClock.restart();
 	float rotIncVal = currRotationSpeed * rotationSpeedFactor * elapsedRotTime;
 
+	if (isPredatorOnScreen) //I have decided it looks better, that if there is any predator on screen, everyones rotation speed is multiplied by .025 instead of elapsed rot time
+		rotIncVal = currRotationSpeed * rotationSpeedFactor * .025;
+
 	//requirement 1: the difference between the current rotation and desired rotation must be within the rotation increment
 	// 	   example: if rotation increment (rotIncVal) is 3, currRotation - desiredRotation has to be greater than 3
 	// 	   I did this so we can use float instead of int, giving us more control over rotation speed, and allowing us to 
@@ -204,7 +213,6 @@ void Boid::updateRotation()
 	//requirement 2: enough time has passed (controls speed of rotation)
 	if ((abs(currRotation - desiredRotation) > (rotIncVal)) && (rotClock.getElapsedTime().asSeconds() > 0.01f))
 	{
-
 		//we have degrees in range [0,360]. distanceBetween is the distance from desiredRotation->rotation in CW direction. distanceInverse is the distance of desiredRotation->rotation in CCW direction
 		int distanceBetween = (currRotation - desiredRotation);
 		int distanceInverse = 360 - abs(distanceBetween);

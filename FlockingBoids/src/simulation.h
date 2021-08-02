@@ -39,6 +39,7 @@ private:
 	bool isHud = true; //tracks if we want to show the HUD (all the text objects) or not
 	bool isControls = false; //tracks if we want to show controls or not
 	bool isWaterSound = false; //tracks if we want to play water stream sound or not
+	bool isPredatorOnScreen = false; //tracks if any predator is on screen. This is because I think it looks better when everyones rotation speed is a little higher when a predator is on screen
 
 	float prevGameSpeed = 1.0; //helps control game speed so we can run at anywhere from [.25x, 2.00x] speed
 	float currGameSpeed = 1.0;
@@ -56,8 +57,7 @@ public:
 
 	//--------FUNCTIONS HELPING WITH USER INPUT-----------------
 	void checkForUserInput(); //check for all user input and update variables accordingly
-	void addNewBoid(int posx, int posy); //to help with creating new boids
-	void addTwoNewBoids(); //help tp add two new boids when x is clicked
+	void addNewBoid(int posx, int posy, int rot); //to help with creating new boids
 	void repulsionHelp(int posx, int posy); //help to create or delete a repulsion
 	void drawCircleRepulsions(int radius, float incVal); //draw a circle of repulsions
 	void soundEffectManager(sf::Sound& soundEffect); 	//to help with managing the sound effects

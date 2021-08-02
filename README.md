@@ -5,10 +5,10 @@ A major part of this program was to make it look as clean as possible. I focused
 
 The base idea comes from Craig Reynolds, who developed a model for flocking in 1986. More can be read here: https://www.red3d.com/cwr/boids/
 
-**Flocking Boids considers 3 rules: Seperation, Allignment, and Cohesion**
+**Flocking Boids considers 3 rules: Seperation, Cohesion, and Allignment**
 * Seperation defines the way boids avoid each other and avoid contact with each other. 
-* Allignment defines the way boids allign, as they will steer towards the average heading of the boids around them. 
 * Cohesion refers to how the boids group together. They will attempt to move to the average center of mass of the boids around them. 
+* Allignment defines the way boids allign, as they will steer towards the average heading of the boids around them. 
 
 The union of these three simple rules gives you incredible flocking behavior. The three rules are each multiplied by a certain coefficient, and changing these coefficients will signifigantly change their behavior.
 
@@ -59,7 +59,7 @@ Animations were drawn myself, The "Clair De Lune" and "Comptine d'un autre été
 * SFML (Simple and Fast Multi-Media Library) 2.5.1 or later is required in order to run this program. You can install SFML here: https://www.sfml-dev.org/download/sfml/2.5.1/
 * Since we are using Visual Studio, download the Visual c++ 15 from the sfml website
 
-**If you don't have access to Visual Studio, or are on linux, scroll to the top to find the other version**
+**If you don't have access to Visual Studio, or you are on linux, scroll to the top to find the other version**
 
 ### Installing and Executing
 
@@ -72,7 +72,7 @@ Animations were drawn myself, The "Clair De Lune" and "Comptine d'un autre été
   * Link the following sfml libraries: `sfml-graphics.lib, sfml-windows.lib, sfml-system.lib, sfml-audio.lib`
   * Link the following debug libraries: `sfml-graphics-d.lib, sfml-windows-d.lib, sfml-system-d.lib, sfml-audio-d.lib`
   * Copy the sfml dlls (in the `sfml/bin` folder) to your project folder
-* If that is too hard to follow, a simple 5 minute tutorial for linking SFML with a Visual Studio project can be found here: https://www.youtube.com/watch?v=YfMQyOw1zik
+* A very easy and simple 5 minute tutorial for linking SFML with a Visual Studio project can be found here: https://www.youtube.com/watch?v=YfMQyOw1zik
 * Click the run button at the top and the program should start
 
 **If you would prefer not having to link libraries, and would prefer a version fully set up, see the link at the top**

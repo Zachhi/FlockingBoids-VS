@@ -1,7 +1,9 @@
 # Flocking Boids
-imulates how fish flock and run from a predator in a closed enviroment
+This program simulates how fish behave (flock) in large groups, and how they run from a predator when flocking 
 
-The base idea comes from Craig Reynolds. However I changed it up a ton. In this simulation, you will find the ability to change flocking patterns, the type of boid, and more. Each type of boid has different attributes (how they run from a predator, rotation speed, movement speed,  etc.). You can add "repulsions" which repulse the boids away, add and delete the borders, and toggle the 3 rules. 
+A major part of this program was to make it look as clean as possible. I focused on having it look professionally done, and I put a lot of thought into the design of the simulation itself. There have been plenty of flocking boid programs done, and I wanted mine to pop out and look better than any others. If you search for flocking boid programs around the web, almost all of them look the same, with a select few that really blow you away. 
+
+The base idea comes from Craig Reynolds, who developed a model for flocking in 1986. More can be read here: https://www.red3d.com/cwr/boids/
 
 **Flocking Boids considers 3 rules: Seperation, Allignment, and Cohesion**
 * Seperation defines the way boids avoid each other and avoid contact with each other. 
@@ -10,9 +12,9 @@ The base idea comes from Craig Reynolds. However I changed it up a ton. In this 
 
 The union of these three simple rules gives you incredible flocking behavior. The three rules are each multiplied by a certain coefficient, and changing these coefficients will signifigantly change their behavior. This allows for different flocking patterns. 
 
-More complex behavior can be added, such as obstacle advoidance. This can be seen in this simulation with repulsions and predators. Repulsions are standstill obstacles the boids will avoid. Once can place them wherever, or make a circle of them, leading to interesting results. Predators are the most entertaining part of this simulation. They will chase the boids and the boids will flee, each type of a boid with a different method of fleeing. I reccomend you play with it yourself to see.
+More complex behavior can be added, such as obstacle advoidance. This can be seen in this simulation with repulsions and predators. Repulsions are stand-still obstacles the boids will avoid. Predators are the most entertaining part of this simulation. They will chase the boids and the boids will flee, and each type of a boid has a different method of fleeing.
 
-
+Animations were drawn myself, The "Clair De Lune" and "Comptine d'un autre été - Amélie" music tracks were performed myself.
 
 **Note: This version requires Visual Studio. If you do not have access to Visual Studio, here is a version that works for linux and windows that requires no setup: https://github.com/Zachhi/FlockingBoids-Windows-Linux**
 

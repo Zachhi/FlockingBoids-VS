@@ -29,7 +29,8 @@ private:
 	Music music;  //struct of all the music we can play
 	SoundEffects soundEffects;  //struct of all the sound effects we need
 	Colors colors; //struct of all the colors we need
-	simulationTexts texts; //struct of all the different text boxes we need
+	SimulationTexts texts; //struct of all the different text boxes we need
+	CircleType circleType; //struct of the qualities the repulsions circle will have
 
 	int currBoidType = 0; //helps keep track of the current boid type (blue, pink, yellow, etc.) we are placing......0 is Blue, 1 is Dark Blue, 2 is Pink, 3 is Yellow, 4 is White
 	int currMusic = 0; //keeps track of which music track is currently playing....0 for claire, 1 for ameilie, 2 for gymnopeide, 3 for fairy fountain
@@ -58,6 +59,7 @@ public:
 	void addNewBoid(int posx, int posy); //to help with creating new boids
 	void addTwoNewBoids(); //help tp add two new boids when x is clicked
 	void repulsionHelp(int posx, int posy); //help to create or delete a repulsion
+	void drawCircleRepulsions(int radius, float incVal); //draw a circle of repulsions
 	void soundEffectManager(sf::Sound& soundEffect); 	//to help with managing the sound effects
 	void clearAll(); //clear all objects
 	void clearCurrent(); //clear current object
@@ -67,6 +69,7 @@ public:
 	void cycleFlockPattern(); //cycle to next flocking pattern
 	void cycleBoid(int cycle); //help cycle through which boid the user is currently placing
 	void cycleMusic(); //help cycle through mucis
+	void cycleCircle(); //cycle which circle of repulsions we want
 
 	//-----------FUNCTIONS HELPING WITH RUNNING THE ACTUAL PROGRAM-----------------
 	void updateFps(); //to help update the fps every loop

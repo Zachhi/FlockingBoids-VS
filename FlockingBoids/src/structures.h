@@ -95,7 +95,7 @@ struct Colors
 	sf::Color borderColor; //border color
 };
 //struct of all the texts we need
-struct simulationTexts
+struct SimulationTexts
 {
 	//text objects to display the counts
 	sf::Text boidBlueCountText;
@@ -123,6 +123,11 @@ struct simulationTexts
 	//text object to display the fps
 	sf::Text fpsText;
 };
-//struct 
+//struct of the repulsion circle type qualities
+struct CircleType
+{
+	int radius = 200;
+	float incValue = 7.5;
+};
 
 #endif //STRUCTURES_H

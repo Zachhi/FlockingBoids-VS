@@ -1,3 +1,4 @@
+#define _USE_MATH_DEFINES 
 #include "simulation.h"
 
 //constructor
@@ -181,7 +182,7 @@ void Simulation::initialize()
 	texts.simulationControls.setPosition(10, 10);
 	texts.simulationControls.setFont(font);
 	texts.simulationControls.setFillColor(sf::Color::White);
-	texts.simulationControls.setString("CONTROLS:	\nLeft Mouse: Spawn current type of object (boid or predator)\nRight Mouse: Spawn/Delete Repulsion\n1: Toggle rule 1\n2: Toggle rule 2\n3: Toggle rule 3\nRight Arrow: Next boid color\nLeft Arrow: Previous boid color\nP: Toggle current object to Predator and back\nSpace: Spawn 20 boids\nC: Clear everything\nV: Clear Current Boid Type\nR: Clear Repulsions\nB: Toggle Borders\nTab: Cycle Flocking Pattern\nUp Arrow: Increase Game Speed\nDown Arrow: Decrease Game Speed\nEscape: Exit Program\nControl: Hide HUD\nN: Next Song");
+	texts.simulationControls.setString("CONTROLS:	\nLeft Mouse: Spawn current type of object (boid or predator)\nRight Mouse: Spawn/Delete Repulsion\n1: Toggle rule 1\n2: Toggle rule 2\n3: Toggle rule 3\nRight Arrow: Next boid color\nLeft Arrow: Previous boid color\nP: Toggle current object to Predator and back\nSpace: Spawn 20 boids\nC: Clear everything\nV: Clear Current Boid Type\nR: Clear Repulsions\nB: Toggle Borders\nTab: Cycle Flocking Pattern\nUp Arrow: Increase Game Speed\nDown Arrow: Decrease Game Speed\nEscape: Exit Program\nControl: Hide HUD\nN: Next Song\nO: Draw Circle of Repulsions\nI: Change Type of Circle");
 	texts.simulationControls.setStyle(sf::Text::Regular);
 
 	//set text to display how to open control menu
@@ -385,6 +386,14 @@ void Simulation::checkForUserInput()
 		//if N is clicked, go to next song
 		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::N)
 			cycleMusic(); //cycle to the next song
+
+		//if O is clicked, draw a circle of repulsions
+		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::O)
+			drawCircleRepulsions(circleType.radius, circleType.incValue);
+
+		//if I is clicked, change type of circle repulsion
+		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::I)
+			cycleCircle();
 	}
 }
 //to help with creating new boids
@@ -553,10 +562,10 @@ void Simulation::repulsionHelp(int posx, int posy)
 	bool isDelete = false;
 	for (int i = 0; i < repulsions.size(); i++)
 	{
-		int posXLeftOffset = repulsions[i].getPosition().x - 25;
-		int posXRightOffset = repulsions[i].getPosition().x + 25;
-		int posYTopOffset = repulsions[i].getPosition().y - 25;
-		int posYBottomOffset = repulsions[i].getPosition().y + 25;
+		int posXLeftOffset = repulsions[i].getPosition().x - 15;
+		int posXRightOffset = repulsions[i].getPosition().x + 15;
+		int posYTopOffset = repulsions[i].getPosition().y - 15;
+		int posYBottomOffset = repulsions[i].getPosition().y + 15;
 
 		if ((posx > posXLeftOffset && posx < posXRightOffset) && (posy < posYBottomOffset && posy > posYTopOffset)) //if clicked on a repulsion, delete said repulsion
 		{
@@ -574,6 +583,28 @@ void Simulation::repulsionHelp(int posx, int posy)
 	{
 		Repulsion newRepulsion(posx, posy, textures.textureRepulsion);
 		repulsions.push_back(newRepulsion);
+	}
+}
+//draw a circle of repulsions
+void Simulation::drawCircleRepulsions(int radius, float incVal)
+{
+	//500, 800 with i += 3 is good
+	//500, i+=10 is good
+	//200, i+=15 good
+	//get the center
+	sf::Vector2f center;
+	center.x = windowWidth / 2; 
+	center.y = windowHeight / 2;
+
+	//to get points on a circle depending on its center and radius
+	//x = xCenter + radius * cos(angle)
+	//y = yCenter + radius * sin(angle)
+	for (float i = 1; i < 361; i += incVal)
+	{
+		float rad = i * (M_PI / 180);
+		float currX = center.x + (radius * cos(rad));
+		float currY = center.y + (radius * sin(rad));
+		repulsionHelp(currX, currY);
 	}
 }
 //to help with managing the sound effects
@@ -809,6 +840,30 @@ void Simulation::cycleMusic()
 	{
 		music.gymnopeide.stop();
 		music.fairyFountain.play();
+	}
+}
+//help cycle which circle of repulsions we want
+void Simulation::cycleCircle()
+{
+	if (circleType.radius == 200)
+	{
+		circleType.radius = 250;
+		circleType.incValue = 6;
+	}
+	else if (circleType.radius == 250)
+	{
+		circleType.radius = 500;
+		circleType.incValue = 3;
+	}
+	else if (circleType.radius == 500)
+	{
+		circleType.radius = 800;
+		circleType.incValue = 6;
+	}
+	else if (circleType.radius == 800)
+	{
+		circleType.radius = 200;
+		circleType.incValue = 7.5;
 	}
 }
 

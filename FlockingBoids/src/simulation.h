@@ -40,6 +40,7 @@ private:
 	bool isControls = false; //tracks if we want to show controls or not
 	bool isWaterSound = false; //tracks if we want to play water stream sound or not
 	bool isPredatorOnScreen = false; //tracks if any predator is on screen. This is because I think it looks better when everyones rotation speed is a little higher when a predator is on screen
+	bool drawHeading = false; //tracks if we should draw the desired heading for each boid or not
 
 	float prevGameSpeed = 1.0; //helps control game speed so we can run at anywhere from [.25x, 2.00x] speed
 	float currGameSpeed = 1.0;

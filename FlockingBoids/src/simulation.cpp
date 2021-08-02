@@ -181,7 +181,7 @@ void Simulation::initialize()
 	texts.simulationControls.setPosition(10, 10);
 	texts.simulationControls.setFont(font);
 	texts.simulationControls.setFillColor(sf::Color::White);
-	texts.simulationControls.setString("CONTROLS:	\nLeft Mouse: Spawn current type of object (boid or predator)\nRight Mouse: Spawn/Delete Repulsion\n1: Toggle rule 1\n2: Toggle rule 2\n3: Toggle rule 3\nRight Arrow: Next boid color\nLeft Arrow: Previous boid color\nP: Toggle current object to Predator and back\nSpace: Spawn 20 boids\nC: Clear everything\nV: Clear Current Boid Type\nR: Clear Repulsions\nB: Toggle Borders\nTab: Cycle Flocking Pattern\nUp Arrow: Increase Game Speed\nDown Arrow: Decrease Game Speed\nEscape: Exit Program\nControl: Hide HUD\nN: Next Song\nO: Draw Circle of Repulsions\nI: Change Type of Circle");
+	texts.simulationControls.setString("CONTROLS:	\nLeft Mouse: Spawn current type of object (boid or predator)\nRight Mouse: Spawn/Delete Repulsion\n1: Toggle rule 1\n2: Toggle rule 2\n3: Toggle rule 3\nRight Arrow: Next boid color\nLeft Arrow: Previous boid color\nP: Toggle current object to Predator and back\nSpace: Spawn 20 boids\nC: Clear everything\nV: Clear Current Boid Type\nR: Clear Repulsions\nB: Toggle Borders\nTab: Cycle Flocking Pattern\nUp Arrow: Increase Game Speed\nDown Arrow: Decrease Game Speed\nEscape: Exit Program\nControl: Hide HUD\nN: Next Song\nO: Draw Circle of Repulsions\nI: Change Type of Circle\nH: Toggle Desired Boid Headings");
 	texts.simulationControls.setStyle(sf::Text::Regular);
 
 	//set text to display how to open control menu
@@ -300,8 +300,8 @@ void Simulation::checkForUserInput()
 		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::X)
 		{
 			//add two boids facing each other
-			addNewBoid(800, 800, 180);
-			addNewBoid(1400, 800, 0);
+			addNewBoid(500, windowHeight / 2.0f, 180);
+			addNewBoid(windowWidth - 500, windowHeight / 2.0f, 0);
 			//update sound effects accordingly
 			soundEffectManager(soundEffects.smallSplash);
 		}
@@ -394,6 +394,10 @@ void Simulation::checkForUserInput()
 		//if I is clicked, change type of circle repulsion
 		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::I)
 			cycleCircle();
+
+		//if H is clicked, toggle drawing the desired boid headings
+		else if (event.type == sf::Event::KeyReleased && event.key.code == sf::Keyboard::H)
+			generalToggle(drawHeading);
 	}
 }
 //to help with creating new boids
@@ -842,17 +846,17 @@ void Simulation::updateObjects()
 {
 	//loops through each boids vector and updates each individual boid in the vectors. Does the same for repulsions
 	for (int i = 0; i < DBlueBoids.size(); i++)
-		DBlueBoids[i].updateBoid(window, isPredatorOnScreen);
+		DBlueBoids[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < blueBoids.size(); i++)
-		blueBoids[i].updateBoid(window, isPredatorOnScreen);
+		blueBoids[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < pinkBoids.size(); i++)
-		pinkBoids[i].updateBoid(window, isPredatorOnScreen);
+		pinkBoids[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < yellowBoids.size(); i++)
-		yellowBoids[i].updateBoid(window, isPredatorOnScreen);
+		yellowBoids[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < whiteBoids.size(); i++)
-		whiteBoids[i].updateBoid(window, isPredatorOnScreen);
+		whiteBoids[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < predators.size(); i++)
-		predators[i].updateBoid(window, isPredatorOnScreen);
+		predators[i].updateBoid(window, isPredatorOnScreen, drawHeading);
 	for (int i = 0; i < repulsions.size(); i++)
 		repulsions[i].updateRepulsion(window);
 }

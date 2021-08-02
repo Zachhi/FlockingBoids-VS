@@ -44,6 +44,8 @@ private:
 	sf::Sprite sprite;//the individual sprite and its rect for animation
 	sf::IntRect rectSprite;
 
+	sf::RectangleShape ruleHeading; //this will be a line coming from each boid that shows their desired heading produced from all the rules
+
 	sf::Clock animPreyClock;	//all the clocks so we dont have to worry about it performing different with different framerates
 	sf::Clock animPredatorClock;
 	sf::Clock rotClock;
@@ -75,7 +77,7 @@ public:
 	//--------------UPDATE BOID FUNCTIONS---------------
 	//general update function. will call all update functions to update position, animation, rotation, etc (based on its variables that should have been changed from
 	//either callBoidRules or callPredatorRules), then will draw it to the window.
-	void updateBoid(sf::RenderWindow& window, bool isPredOnScreen);
+	void updateBoid(sf::RenderWindow& window, bool isPredOnScreen, bool drawHeading);
 	void updatePredatorAnim();
 	void updatePreyAnim();
 	void updatePosition();

@@ -47,7 +47,7 @@ Eventually, my plan is to make this into a screensaver people can download and u
 
 Animations were drawn myself, The "Clair De Lune" and "Comptine d'un autre été - Amélie" music tracks were performed myself.
 
-**Note: This version requires Visual Studio. If you do not have access to Visual Studio, here is a version that works for linux and windows that requires no setup: https://github.com/Zachhi/FlockingBoids-Windows-Linux**
+**Note: This version requires Visual Studio. If you do not have access to Visual Studio, here is a version for linux and windows that requires no setup: https://github.com/Zachhi/FlockingBoids-Windows-Linux**
 
 ## Demo
 

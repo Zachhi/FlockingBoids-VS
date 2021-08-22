@@ -1,5 +1,5 @@
 # Flocking Boids
-This program simulates how fish behave (flock) in large groups, and how they run from a predator when flocking.
+This program simulates how fish behave (flock) in large groups, how they run from predators, avoid obstacles, borders, and more.
 
 # About
 A major part of this program was to make it look as clean as possible. I focused on having it look professionally done, and I put a lot of thought into the design of the simulation itself. There have been plenty of flocking boid programs done, and I wanted mine to pop out and look better than any others. If you search for flocking boid programs around the web, almost all of them look the same, with a select few that really blow you away. I think this simulation is worth a look at, so go ahead and scroll to the Demo section to watch the youtube video.

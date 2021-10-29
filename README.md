@@ -1,5 +1,5 @@
 # Flocking Boids
-This program simulates how fish behave (flock) in large groups, how they run from predators, avoid obstacles, borders, and more.
+This program simulates how fish behave in large groups, run from predators, avoid obstacles, avoid borders, and more.
 
 **Note: This version requires Visual Studio. If you do not have access to Visual Studio, here is a version for linux and windows that requires no setup: https://github.com/Zachhi/FlockingBoids-Windows-Linux**
 
@@ -13,7 +13,7 @@ Watch the video here (above is only a 10 second gif):
 https://www.youtube.com/watch?v=G17Cqs6FFl0&t=18s
 
 # About
-A major part of this program was to make it look as clean as possible. I focused on having it look professionally done, and I put a lot of thought into the design of the simulation itself. There have been plenty of flocking boid programs done, and I wanted mine to pop out and look better than any others. If you search for flocking boid programs around the web, almost all of them look the same, with a select few that really blow you away. I think this simulation is worth a look at, so go ahead and scroll to the Demo section to watch the youtube video.
+A major part of this program was to make it look as clean as possible. I focused on having it look professionally done, and I put a lot of thought into the design of the simulation itself. There have been plenty of flocking boid programs done, and I wanted mine to pop out and look better than any others. This simulation is worth a look at, so go ahead and scroll to the Demo section to watch the youtube video.
 
 The base idea comes from Craig Reynolds, who developed a model for flocking in 1986. More can be read here: https://www.red3d.com/cwr/boids/
 
